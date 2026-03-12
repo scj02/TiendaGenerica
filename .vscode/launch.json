@@ -2,6 +2,34 @@
     "configurations": [
         {
             "type": "java",
+            "name": "MsclientesApplication",
+            "request": "launch",
+            "mainClass": "co.edu.unbosque.msclientes.MsclientesApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "MsproveedoresApplication",
+            "request": "launch",
+            "mainClass": "co.edu.unbosque.msproveedores.MsproveedoresApplication",
+            "projectName": "msproveedores"
+        },
+        {
+            "type": "java",
+            "name": "MsproductosApplication",
+            "request": "launch",
+            "mainClass": "co.edu.unbosque.msproductos.MsproductosApplication",
+            "projectName": "msproductos"
+        },
+        {
+            "type": "java",
+            "name": "MsventasApplication",
+            "request": "launch",
+            "mainClass": "co.edu.unbosque.msventas.MsventasApplication",
+            "projectName": "msventas"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-MsclientesApplication<msclientes>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
