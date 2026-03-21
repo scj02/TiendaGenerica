@@ -5,18 +5,41 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-@Table(name = "productos")
+@Table(name = "product")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    @JsonProperty("codigoProducto")
     private Long id;
+    
+    @Column(name = "name")
+    @JsonProperty("nombreProducto")
     private String name;
+    
+    @Column(name = "price")
+    @JsonProperty("precioCompra")
     private Double price;
+    
+    @Column(name = "cantidad")
     private Integer quantity;
+    
+    @Column(name = "iva")
+    @JsonProperty("ivaCompra")
     private Double iva;
+
+    @Column(name = "nit_proveedor")
+    @JsonProperty("nitProveedor")
+    private Long nitProveedor;
+
+    @Column(name = "precio_venta")
+    @JsonProperty("precioVenta")
+    private Double precioVenta;
 
     public Product() {
     }
@@ -67,5 +90,21 @@ public class Product {
 
     public void setIva(Double iva) {
         this.iva = iva;
+    }
+
+    public Long getNitProveedor() {
+        return nitProveedor;
+    }
+
+    public void setNitProveedor(Long nitProveedor) {
+        this.nitProveedor = nitProveedor;
+    }
+
+    public Double getPrecioVenta() {
+        return precioVenta;
+    }
+
+    public void setPrecioVenta(Double precioVenta) {
+        this.precioVenta = precioVenta;
     }
 }

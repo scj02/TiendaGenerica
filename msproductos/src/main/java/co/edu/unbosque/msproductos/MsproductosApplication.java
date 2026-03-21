@@ -14,12 +14,8 @@ public class MsproductosApplication extends SpringBootServletInitializer {
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(MsproductosApplication.class);
     }
+
     public static void main(String[] args) {
         SpringApplication.run(MsproductosApplication.class, args);
     }
-	@Override
-	public void onStartup(ServletContext servletContext) throws ServletException {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'onStartup'");
-	}
 }

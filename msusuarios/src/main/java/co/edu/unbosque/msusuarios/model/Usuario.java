@@ -3,16 +3,22 @@ package co.edu.unbosque.msusuarios.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
 
     @Id
+    @JsonProperty("cedula")
     private Long cedula_usuario;
+    @JsonProperty("correoElectronico")
     private String email_usuario;
+    @JsonProperty("nombreCompleto")
     private String nombre_usuario;
+    @JsonProperty("password")
     private String password;
+    @JsonProperty("usuario")
     private String usuario;
 
     // Getters y Setters

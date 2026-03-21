@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "ventas")
@@ -14,21 +15,27 @@ public class Sale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo_venta")
+    @JsonProperty("codigoVenta")
     private Long codigoVenta;
 
     @Column(name = "cedula_cliente")
+    @JsonProperty("cedulaCliente")
     private String cedulaCliente;
 
     @Column(name = "cedula_usuario")
+    @JsonProperty("cedulaUsuario")
     private String cedulaUsuario;
 
     @Column(name = "valor_total_venta")
+    @JsonProperty("totalVenta")
     private Double valorTotalVenta;
 
     @Column(name = "valor_iva")
+    @JsonProperty("totalIva")
     private Double valorIva;
 
     @Column(name = "valor_total_mas_iva")
+    @JsonProperty("totalConIva")
     private Double valorTotalMasIva;
 
     public Sale() {
