@@ -1,0 +1,97 @@
+-- ==========================================
+-- 1. MICROSERVICIO DE PRODUCTOS
+-- ==========================================
+CREATE DATABASE IF NOT EXISTS SDProductos;
+USE SDProductos;
+
+CREATE TABLE product (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255),
+    price DOUBLE,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO product (name, price) VALUES
+('Arroz Diana 500g', 2500.00),
+('Café Sello Rojo 250g', 6800.00),
+('Pan Tajado Bimbo', 4500.00),
+('Leche Entera Alquería 1L', 4200.00),
+('Chocolate Corona x500g', 7500.00),
+('Arepas de Maíz x5', 3000.00);
+
+-- ==========================================
+-- 2. MICROSERVICIO DE VENTAS
+-- ==========================================
+CREATE DATABASE IF NOT EXISTS SDVentas;
+USE SDVentas;
+
+CREATE TABLE ventas (
+    codigo_venta BIGINT NOT NULL AUTO_INCREMENT,
+    cedula_cliente VARCHAR(50),
+    cedula_usuario VARCHAR(50),
+    valor_total_venta DOUBLE,
+    valor_iva DOUBLE,
+    valor_total_mas_iva DOUBLE,
+    PRIMARY KEY (codigo_venta)
+);
+
+CREATE TABLE detalleVentas (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    codigo_producto BIGINT,
+    cantidad INT,
+    valor_unitario DECIMAL(10,2),
+    valor_total DECIMAL(10,2),
+    codigo_venta BIGINT,
+    PRIMARY KEY (id)
+);
+
+-- Insertamos un par de ventas de prueba
+INSERT INTO ventas (cedula_cliente, cedula_usuario, valor_total_venta, valor_iva, valor_total_mas_iva) VALUES
+('10101010', '90909090', 21100.00, 4009.00, 25109.00),
+('20202020', '90909090', 15000.00, 2850.00, 17850.00);
+
+-- Insertamos el detalle de los productos comprados en esas ventas
+INSERT INTO detalleVentas (codigo_producto, cantidad, valor_unitario, valor_total, codigo_venta) VALUES
+(1, 2, 2500.00, 5000.00, 1),
+(2, 1, 6800.00, 6800.00, 1),
+(4, 1, 4200.00, 4200.00, 1),
+(5, 2, 7500.00, 15000.00, 2);
+
+-- ==========================================
+-- 3. MICROSERVICIO DE CLIENTES
+-- ==========================================
+CREATE DATABASE IF NOT EXISTS SDClientes;
+USE SDClientes;
+
+CREATE TABLE clientes (
+    cedula BIGINT NOT NULL,
+    nombre_completo VARCHAR(255),
+    direccion VARCHAR(255),
+    telefono VARCHAR(50),
+    correo_electronico VARCHAR(255),
+    PRIMARY KEY (cedula)
+);
+
+INSERT INTO clientes (cedula, nombre_completo, direccion, telefono, correo_electronico) VALUES
+(10101010, 'Carlos Valderrama', 'Calle 72 # 45-20, Barranquilla', '3001234567', 'carlos.valderrama@correo.com.co'),
+(20202020, 'Mariana Pajón', 'Carrera 43A # 1-50, Medellín', '3109876543', 'mariana.pajon@correo.com.co'),
+(30303030, 'Nairo Quintana', 'Avenida Boyacá # 116-20, Bogotá', '3156667788', 'nairo.quintana@correo.com.co');
+
+-- ==========================================
+-- 4. MICROSERVICIO DE USUARIOS (Para el Login)
+-- ==========================================
+CREATE DATABASE IF NOT EXISTS SDUsuarios;
+USE SDUsuarios;
+
+CREATE TABLE usuarios (
+    cedula_usuario BIGINT NOT NULL,
+    email_usuario VARCHAR(255),
+    nombre_usuario VARCHAR(255),
+    password VARCHAR(255),
+    usuario VARCHAR(255),
+    PRIMARY KEY (cedula_usuario)
+);
+
+-- Es vital tener al menos un usuario para poder probar el Login en el frontend
+INSERT INTO usuarios (cedula_usuario, email_usuario, nombre_usuario, password, usuario) VALUES
+(90909090, 'admin@tiendagenerica.com.co', 'Administrador General', 'admin123', 'admin');

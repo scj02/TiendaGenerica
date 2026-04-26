@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: toor
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - tienda-network
+
+  msproductos:
+    build:
+      context: ./msproductos
+    container_name: msproductos
+    environment:
+      - DB_HOST=mysql-db
+    depends_on:
+      - mysql-db
+    networks:
+      - tienda-network
+
+  msclientes:
+    build:
+      context: ./msclientes
+    container_name: msclientes
+    environment:
+      - DB_HOST=mysql-db
+    depends_on:
+      - mysql-db
+    networks:
+      - tienda-network
+
+  msproveedores:
+    build:
+      context: ./msproveedores
+    container_name: msproveedores
+    environment:
+      - DB_HOST=mysql-db
+    depends_on:
+      - mysql-db
+    networks:
+      - tienda-network
+
+  msusuarios:
+    build:
+      context: ./msusuarios
+    container_name: msusuarios
+    environment:
+      - DB_HOST=mysql-db
+    depends_on:
+      - mysql-db
+    networks:
+      - tienda-network
+
+  msventas:
+    build:
+      context: ./msventas
+    container_name: msventas
+    environment:
+      - DB_HOST=mysql-db
+      - CLIENTES_HOST=msclientes
+      - PRODUCTOS_HOST=msproductos
+    depends_on:
+      - mysql-db
+      - msclientes
+      - msproductos
+    networks:
+      - tienda-network
+
+  api-gateway:
+    image: nginx:alpine
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - msproductos
+      - msclientes
+      - msproveedores
+      - msusuarios
+      - msventas
+    networks:
+      - tienda-network
+
+networks:
+  tienda-network:
+    driver: bridge
